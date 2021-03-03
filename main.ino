@@ -1,15 +1,15 @@
 #include <AFMotor.h>
 
-int pinkierunek = 19;
+int pindirection = 19;
 int pinstart = 18;
-int kierunek;
+int direction;
 int start;
 
 void CarBackward(void) 
 {
   FollowLine(-1);
 }
-//asd
+
 void CarForward(void)
 {
   FollowLine(1);  
@@ -25,35 +25,35 @@ void setup()
   Serial.begin(9600);
   pinMode(18, INPUT);
   pinMode(19, INPUT);
-  digitalWrite(pinkierunek, HIGH);
+  digitalWrite(pindirection, HIGH);
   digitalWrite(pinstart, LOW);     
 }
 void loop() 
 {
-    static int robot_na_linii = 1;
-  kierunek = digitalRead(pinkierunek);
+    static int robot_on_line = 1;
+  direction = digitalRead(pindirection);
   start = digitalRead(pinstart); 
 
   
-  if(start)             // decyduje o włączeniu
+  if(start)             // if start - robot is on
   {
-    robot_na_linii = kierunek ? 1 : -1; // stopstan - zmienione na kierunek decyduje o kierunku jazdy
-    SensorsRead(kierunek);
+    robot_on_line = direction ? 1 : -1; // 1 - go forward and use front sensors, -1 go backward and use rear sensors
+    SensorsRead(direction);
   } 
-  else robot_na_linii = 0;
+  else robot_on_line = 0;
 
   
 
-// wykonywane co x ms - ma wpływ na działanie regulatora PID!
+// executed every x ms
   static unsigned long tim;
   if(millis() - tim > 20)
   {
-    if(robot_na_linii > 0) 
+    if(robot_on_line > 0) 
     {
       CarForward();
       Serial.println("forward"); 
     }
-    else if(robot_na_linii < 0)   CarBackward();
+    else if(robot_on_line < 0)   CarBackward();
     else CarStop();  
     tim = millis();
   }

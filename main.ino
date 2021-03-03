@@ -30,7 +30,7 @@ void setup()
 }
 void loop() 
 {
-    static int robot_on_line = 1;
+  static int robot_on_line = 1;
   direction = digitalRead(pindirection);
   start = digitalRead(pinstart); 
 
@@ -51,7 +51,6 @@ void loop()
     if(robot_on_line > 0) 
     {
       CarForward();
-      Serial.println("forward"); 
     }
     else if(robot_on_line < 0)   CarBackward();
     else CarStop();  

@@ -53,7 +53,7 @@ void SetDrive(int motorL, int motorP)
 
 // function that sets motor speed value based on given direction and car max speed
 // variable dir -> value from -255 (turn left) to 255 (turn right), 0 (go straight)
-// varaible speed -> car maxSpeed
+// variable speed -> car maxSpeed
 void SetDriveForTurning(int speed, int turn)    // dir from updatePID, speed from maxSpeed
 {
   SetDrive(speed+turn, speed-turn); // turn left-right

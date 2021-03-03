@@ -1,5 +1,4 @@
-
-// makro that changes float to Q15 number system
+// macro that changes float to Q15 number system
 #define Q15(X) ((X < 0.0) ? (int)(32768*(X) - 0.5) : (int)(32767*(X) + 0.5))
 
 // PID controller settings
